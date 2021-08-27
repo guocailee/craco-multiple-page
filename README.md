@@ -6,7 +6,7 @@
 
 ```javascript
 
-const CracoMultiplePage = require('./plugins/index')
+const CracoMultiplePage = require('craco-mutiple-page')
 
 module.exports = {
   plugins: [
