@@ -1,30 +1,31 @@
-import { whenDev } from '@craco/craco'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import removePlugin from './utils/removePlugin'
+const { removePlugins, addPlugins, pluginByName } = require('@craco/craco')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
 module.exports = {
   overrideWebpackConfig: ({ webpackConfig, pluginOptions }) => {
-    const pages: any[] = pluginOptions.pages || []
+    removePlugins(webpackConfig, pluginByName('HtmlWebpackPlugin'))
+    removePlugins(webpackConfig, pluginByName('ManifestPlugin'))
+    console.log(webpackConfig.entry)
 
-    removePlugin(webpackConfig)
-    if (pages.length > 0) {
-      webpackConfig.entry = {}
-    }
+    const pages = pluginOptions.pages || []
+    const plugins: any = []
+    const entry = {}
     pages.forEach((page) => {
-      webpackConfig.entry[page.name] = page.entry
-      webpackConfig.plugins.push(
+      const isIndex = page.name === 'index'
+      entry[page.name] = path.resolve(page.entry)
+      plugins.push(
         new HtmlWebpackPlugin({
           title: page.title || 'Custom template',
           template: page.template || './public/index.html',
+          filename: isIndex ? `${page.name}.html` : `${page.name}/index.html`,
           chunks: [page.name],
         })
       )
     })
-
-    whenDev(() => {
-      webpackConfig.output.filename = 'static/js/[name].bundle.js'
-    })
-
+    webpackConfig.entry = entry
+    console.log(webpackConfig.entry)
+    addPlugins(webpackConfig, plugins)
     return webpackConfig
   },
 }
