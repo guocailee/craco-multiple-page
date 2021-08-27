@@ -1,0 +1,65 @@
+import { whenDev } from '@craco/craco'
+import { sep } from 'path'
+import { isObject, isFunction } from 'lodash'
+
+function getWebpackConfig(pages = [], HtmlWebpackPlugin: any = {}, ManifestPlugin: any = {}, pluginOptions) {
+  const plugins: any[] = []
+  const entry: any = {}
+  const isDev = whenDev(() => true, false)
+
+  let customConfig = {}
+
+  let isFun = false
+  if (isFunction(pluginOptions.HtmlWebpackPluginOptions)) {
+    isFun = true
+  } else if (isObject(pluginOptions.HtmlWebpackPluginOptions)) {
+    customConfig = pluginOptions.HtmlWebpackPluginOptions
+  }
+
+  pages.forEach((item: any) => {
+    entry[item.name] = [isDev && require.resolve('react-dev-utils/webpackHotDevClient'), item.entry].filter(Boolean)
+    let config = Object.assign({}, HtmlWebpackPlugin.config, customConfig, {
+      title: item.title,
+      chunks: [item.name],
+      filename: `${pluginOptions.htmlOutputDir}${sep}${item.dir}.html`,
+    })
+    if (isFun) {
+      config = pluginOptions.HtmlWebpackPluginOptions(config)
+      if (!isObject(config)) {
+        console.error('HtmlWebpackPluginOptions 应该返回一个 Object')
+        process.exit(1)
+      }
+    }
+
+    plugins.push(new HtmlWebpackPlugin.plugin(config))
+  })
+
+  plugins.push(
+    new ManifestPlugin.plugin(
+      Object.assign({}, ManifestPlugin.config, {
+        generate: (seed, files, entrypoints) => {
+          const manifestFiles = files.reduce((manifest, file) => {
+            manifest[file.name] = file.path
+            return manifest
+          }, seed)
+          const entrypointFiles: any = []
+          Object.values(entrypoints).forEach((entrypoint: any) => {
+            entrypointFiles.push(...entrypoint.filter((fileName) => !fileName.endsWith('.map')))
+          })
+
+          return {
+            files: manifestFiles,
+            entrypoints: entrypointFiles,
+          }
+        },
+      })
+    )
+  )
+
+  return {
+    plugins,
+    entry,
+  }
+}
+
+export default getWebpackConfig
