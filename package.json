@@ -1,6 +1,6 @@
 {
   "name": "craco-mutiple-page",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Craco plugin for muti pages",
   "main": "bin/index.js",
   "files": [
@@ -28,13 +28,8 @@
   "homepage": "https://github.com/guocailee/craco-mutiple-page/#readme",
   "peerDependencies": {
     "@craco/craco": "^6.2.0",
-    "react-scripts": "^4.0.3"
-  },
-  "dependencies": {
-    "commander": "^8.1.0",
     "html-webpack-plugin": "^5.3.2",
-    "lodash": "^4.17.21",
-    "path-to-regexp": "^6.*"
+    "react-scripts": "^4.0.3"
   },
   "devDependencies": {
     "@types/node": "^16.7.2",
