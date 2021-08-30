@@ -24,7 +24,6 @@ module.exports = {
       )
     })
     webpackConfig.entry = entry
-    console.log(webpackConfig.entry)
     addPlugins(webpackConfig, plugins)
     return webpackConfig
   },
