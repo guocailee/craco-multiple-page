@@ -1,6 +1,7 @@
 const { removePlugins, addPlugins, pluginByName } = require('@craco/craco')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
+const isDevelopment = process.env.NODE_ENV !== 'production'
 
 module.exports = {
   overrideWebpackConfig: ({ webpackConfig, pluginOptions }) => {
@@ -12,7 +13,7 @@ module.exports = {
     const entry = {}
     pages.forEach((page) => {
       const isIndex = page.name === 'index'
-      entry[page.name] = path.resolve(page.entry)
+      entry[page.name] = [isDevelopment && require.resolve('react-dev-utils/webpackHotDevClient') && path.resolve(page.entry)].filter(Boolean)
       plugins.push(
         new HtmlWebpackPlugin({
           title: page.title || 'Custom template',
