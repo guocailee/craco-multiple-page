@@ -6,7 +6,6 @@ module.exports = {
   overrideWebpackConfig: ({ webpackConfig, pluginOptions }) => {
     removePlugins(webpackConfig, pluginByName('HtmlWebpackPlugin'))
     removePlugins(webpackConfig, pluginByName('ManifestPlugin'))
-    console.log(webpackConfig.entry)
 
     const pages = pluginOptions.pages || []
     const plugins: any = []
