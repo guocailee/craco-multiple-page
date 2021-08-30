@@ -1,5 +1,5 @@
 {
-  "name": "craco-mutiple-page",
+  "name": "craco-multiple-page",
   "version": "0.0.6",
   "description": "Craco plugin for muti pages",
   "main": "bin/index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guocailee/craco-mutiple-page.git"
+    "url": "git+https://github.com/guocailee/craco-multiple-page.git"
   },
   "keywords": [
     "create-react-app",
@@ -23,9 +23,9 @@
   "author": "lcn",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/guocailee/craco-mutiple-page/issues"
+    "url": "https://github.com/guocailee/craco-multiple-page/issues"
   },
-  "homepage": "https://github.com/guocailee/craco-mutiple-page/#readme",
+  "homepage": "https://github.com/guocailee/craco-multiple-page/#readme",
   "peerDependencies": {
     "@craco/craco": "^6.2.0",
     "html-webpack-plugin": "^5.3.2",
