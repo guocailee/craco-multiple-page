@@ -1,7 +1,7 @@
 {
   "name": "craco-multiple-page",
-  "version": "0.1.0",
-  "description": "Craco plugin for muti pages",
+  "version": "0.0.9",
+  "description": "Craco plugin for multi pages",
   "main": "bin/index.js",
   "files": [
     "bin"
