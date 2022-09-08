@@ -1,13 +1,19 @@
 # craco-multiple-pages
 
-
+## Install
+```bash
+# npm 
+npm install -D craco-multiple-page
+# or yarn
+yarn add craco-multiple-page -D
+```
 
 ##  Usage
 
+
 ```javascript
-
-const CracoMultiplePage = require('craco-mutiple-page')
-
+// define in craco config file, such like: craco.config.{js, ts}
+const CracoMultiplePage = require('craco-multiple-page')
 module.exports = {
   plugins: [
     {
